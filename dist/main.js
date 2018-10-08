@@ -322,7 +322,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pre
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var deck_of_cards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deck-of-cards */ \"./node_modules/deck-of-cards/lib/deck.js\");\n\n\nconst table = document.querySelector('.table');\nconst deck = Object(deck_of_cards__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\ndeck.mount(table);\ndeck.fan();\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var deck_of_cards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deck-of-cards */ \"./node_modules/deck-of-cards/lib/deck.js\");\n\n\nconst table = document.querySelector('.zone-deck');\nconst deck = Object(deck_of_cards__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\ndeck.mount(table);\ndeck.shuffle();\nsetTimeout(() => {\n  const card = deck.cards[0];\n  card.mount(table);\n\n  card.setSide('front');\n}, 500);\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
