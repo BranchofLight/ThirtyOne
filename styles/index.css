@@ -1,0 +1,55 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+
+  height: 100%;
+  width: 100%;
+
+  background-color: rgb(74, 74, 74);
+}
+
+.table {
+  display: flex;
+
+  width: 800px;
+  height: 450px;
+
+  background-color: rgb(31, 164, 61);
+
+  border: 3px solid black;
+
+  align-self: center;
+  margin: 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 3px 3px 5px rgb(27, 27, 27);
+}
+
+.deck {
+  position: relative;
+
+  width: 1px;
+  height: 1px;
+}
+
+/* .table::before {
+  box-sizing: border-box;
+  content: '';
+  z-index: -1;
+
+  width: 600px;
+  height: 350px;
+
+  background-color: black;
+
+  position: absolute;
+  top: 8px;
+  left: 8px;
+} */
