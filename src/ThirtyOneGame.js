@@ -3,11 +3,7 @@ import TurnManager from './TurnManager';
 import { count } from './CardCounter';
 
 export default class ThirtyOneGame {
-  constructor ({
-    players,
-    deckPileContainer,
-    discardPileContainer,
-  }) {
+  constructor({ players, deckPileContainer, discardPileContainer }) {
     this._deckPileContainer = deckPileContainer;
     this._discardPileContainer = discardPileContainer;
     this._players = players;
@@ -15,33 +11,55 @@ export default class ThirtyOneGame {
     this.reset();
   }
 
-  reset () {
+  reset() {
     this.knocker = null;
 
-    console.log(Deck);
-    this._deck = new Deck();
+    this._deck = Deck();
+    this._deck.mount(this._deckPileContainer);
     this._deck.shuffle();
 
     this.discardPile = [this._deck.cards.pop()];
-    this.deckPile = this.deck.cards;
+    this.deckPile = this._deck.cards;
+
+    this.discardPile[0].setSide('front');
+    this.discardPile[0].mount(this._discardPileContainer);
 
     this._turnManager = new TurnManager(this._players);
 
     this.dealCards();
   }
 
-  dealCards () {
+  dealCards() {
     // Put 3 cards in each players' hand
     for (let i = 0; i < this._players.length; ++i) {
       this._players[i].hand = this.deckPile.slice(0, 3);
     }
   }
 
-  knock () {
-    this.knocker = this.turnManager.currentPlayer();
+  pickFromDeck() {
+    const card = this.deckPile.pop();
+    this.addToHand(card);
+    // this._turnManager.currentPlayer.hand.push(card);
+    // card.unmount();
   }
 
-  nextTurn () {
+  pickFromDiscard() {
+    const card = this.discardPile.splice(0, 1)[0];
+    this.addToHand(card);
+    // this._turnManager.currentPlayer.hand.push(card);
+    // card.unmount();
+  }
+
+  addToHand(card) {
+    this._turnManager.currentPlayer.hand.push(card);
+    card.mount(this._turnManager.currentPlayer.element);
+  }
+
+  knock() {
+    this.knocker = this.turnManager.currentPlayer;
+  }
+
+  nextTurn() {
     const hand = this.turnManager.currentPlayer.hand;
 
     // Determine if the user won by having 31
@@ -58,7 +76,7 @@ export default class ThirtyOneGame {
     }
   }
 
-  win () {
+  win() {
     this.over = true;
     this.onWin(this.turnManager.currentPlayer);
   }

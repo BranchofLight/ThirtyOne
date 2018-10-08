@@ -65,6 +65,12 @@ body {
   cursor: pointer !important;
 }
 
+.discard .card,
+.zone-1 .card,
+.zone-2 .card {
+  transform: none !important;
+}
+
 .zone-1,
 .zone-2 {
   position: absolute;

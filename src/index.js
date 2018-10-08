@@ -1,22 +1,20 @@
 import Deck from 'deck-of-cards';
 import { bindAll } from './EventBindings';
+import ThirtyOneGame from './ThirtyOneGame';
 
 let topCard = null;
 const table = document.querySelector('.zone-deck');
-const deck = Deck();
-deck.mount(table);
-deck.shuffle();
-setTimeout(() => {
-  const card = deck.cards[0];
-  card.mount(table);
 
-  card.setSide('front');
-  topCard = card;
-}, 500);
+const Game = new ThirtyOneGame({
+  players: [
+    { name: 'Scott', element: document.querySelector('.zone-1') },
+    { name: 'Abe', element: document.querySelector('.zone-2') }
+  ],
+  deckPileContainer: table,
+  discardPileContainer: document.querySelector('.discard')
+});
 
-bindAll(topCard, {
-  click: card => {
-    // check whose turn
-    const turnZone = document.querySelector('zone-1');
-  }
+bindAll({
+  deckClick: () => Game.pickFromDeck(),
+  discardClick: () => Game.pickFromDiscard()
 });
