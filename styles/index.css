@@ -15,6 +15,7 @@ body {
 
 .table {
   display: flex;
+  position: relative;
 
   width: 800px;
   height: 450px;
@@ -26,17 +27,75 @@ body {
   align-self: center;
   margin: 0 auto;
 
-  align-items: center;
-  justify-content: center;
-
   box-shadow: 3px 3px 5px rgb(27, 27, 27);
 }
 
+.zone-deck {
+  position: relative;
+
+  width: 200px;
+  height: 110px;
+
+  align-self: center;
+  margin: 0 auto;
+}
+
+.discard,
 .deck {
   position: relative;
 
-  width: 1px;
-  height: 1px;
+  width: 80px;
+  height: 110px;
+}
+
+.discard {
+  float: left;
+}
+
+.deck {
+  float: right;
+}
+
+.card {
+  top: 0 !important;
+  left: 0 !important;
+}
+
+.card {
+  cursor: pointer !important;
+}
+
+.zone-1,
+.zone-2 {
+  position: absolute;
+
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 300px;
+  height: 130px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px dashed rgba(0, 0, 0, 0.25);
+}
+
+.zone-1 {
+  bottom: 5px;
+}
+
+.zone-1::after {
+  content: 'Your Hand';
+}
+
+.zone-2 {
+  top: 5px;
+}
+
+.zone-2::after {
+  content: 'Their Hand';
 }
 
 /* .table::before {

@@ -314,6 +314,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pre
 
 /***/ }),
 
+/***/ "./src/EventBindings.js":
+/*!******************************!*\
+  !*** ./src/EventBindings.js ***!
+  \******************************/
+/*! exports provided: bindAll */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"bindAll\", function() { return bindAll; });\nconst bindAll = config => {\n  document.querySelector('.discard').addEventListener('click', e => {\n    config.click(topCard);\n  });\n\n  document.querySelector('.deck').addEventListener('click', e => {\n    config.click(topCard);\n  });\n};\n\n\n//# sourceURL=webpack:///./src/EventBindings.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -322,7 +334,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _pre
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var deck_of_cards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deck-of-cards */ \"./node_modules/deck-of-cards/lib/deck.js\");\n\n\nconst table = document.querySelector('.table');\nconst deck = Object(deck_of_cards__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\ndeck.mount(table);\ndeck.fan();\n\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var deck_of_cards__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deck-of-cards */ \"./node_modules/deck-of-cards/lib/deck.js\");\n/* harmony import */ var _EventBindings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EventBindings */ \"./src/EventBindings.js\");\n\n\n\nlet topCard = null;\nconst table = document.querySelector('.zone-deck');\nconst deck = Object(deck_of_cards__WEBPACK_IMPORTED_MODULE_0__[\"default\"])();\ndeck.mount(table);\ndeck.shuffle();\nsetTimeout(() => {\n  const card = deck.cards[0];\n  card.mount(table);\n\n  card.setSide('front');\n  topCard = card;\n}, 500);\n\nObject(_EventBindings__WEBPACK_IMPORTED_MODULE_1__[\"bindAll\"])(topCard, {\n  click: card => {\n    // check whose turn\n    const turnZone = document.querySelector('zone-1');\n  }\n});\n\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 
