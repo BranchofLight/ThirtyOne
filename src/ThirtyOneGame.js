@@ -2,6 +2,8 @@ import Deck from 'deck-of-cards';
 import TurnManager from './TurnManager';
 import { count } from './CardCounter';
 
+const HAND_SIZE = 3;
+
 export default class ThirtyOneGame {
   constructor({ players, deckPileContainer, discardPileContainer }) {
     this._deckPileContainer = deckPileContainer;
@@ -32,27 +34,33 @@ export default class ThirtyOneGame {
   dealCards() {
     // Put 3 cards in each players' hand
     for (let i = 0; i < this._players.length; ++i) {
-      this._players[i].hand = this.deckPile.slice(0, 3);
+      // this._players[i].hand = this.deckPile.slice(0, 3);
+      this._players[i].hand = [];
+      for (let c = 0; c < HAND_SIZE; c++) {
+        this.addToHand(this._players[i], this.deckPile.splice(0, 1)[0]);
+      }
     }
   }
 
   pickFromDeck() {
-    const card = this.deckPile.pop();
-    this.addToHand(card);
-    // this._turnManager.currentPlayer.hand.push(card);
-    // card.unmount();
+    // last card
+    this.addToHand(this._turnManager.currentPlayer, this.deckPile.pop());
   }
 
   pickFromDiscard() {
-    const card = this.discardPile.splice(0, 1)[0];
-    this.addToHand(card);
-    // this._turnManager.currentPlayer.hand.push(card);
-    // card.unmount();
+    // first card
+    this.addToHand(
+      this._turnManager.currentPlayer,
+      this.discardPile.splice(0, 1)[0]
+    );
   }
 
-  addToHand(card) {
-    this._turnManager.currentPlayer.hand.push(card);
-    card.mount(this._turnManager.currentPlayer.element);
+  addToHand(player, card) {
+    player.hand.push(card);
+    card.setSide('front');
+
+    const index = player.hand.length - 1;
+    card.mount(player.element.children[index]);
   }
 
   knock() {

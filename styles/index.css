@@ -92,16 +92,34 @@ body {
   bottom: 5px;
 }
 
-.zone-1::after {
-  content: 'Your Hand';
-}
-
 .zone-2 {
   top: 5px;
 }
 
+.zone-1::after,
+.zone-2::after {
+  position: absolute;
+  z-index: -1;
+}
+
+.zone-1::after {
+  content: 'Your Hand';
+}
+
 .zone-2::after {
   content: 'Their Hand';
+}
+
+.hand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-container {
+  position: relative;
+  width: 30px;
+  height: 110px;
 }
 
 /* .table::before {

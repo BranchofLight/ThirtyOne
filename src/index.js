@@ -7,8 +7,8 @@ const table = document.querySelector('.zone-deck');
 
 const Game = new ThirtyOneGame({
   players: [
-    { name: 'Scott', element: document.querySelector('.zone-1') },
-    { name: 'Abe', element: document.querySelector('.zone-2') }
+    { name: 'Scott', element: document.querySelector('.zone-1 .hand') },
+    { name: 'Abe', element: document.querySelector('.zone-2 .hand') }
   ],
   deckPileContainer: table,
   discardPileContainer: document.querySelector('.discard')
