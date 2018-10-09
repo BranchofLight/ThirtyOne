@@ -5,10 +5,17 @@ import { count } from './CardCounter';
 const HAND_SIZE = 3;
 
 export default class ThirtyOneGame {
-  constructor({ players, deckPileContainer, discardPileContainer }) {
+  constructor({
+    players,
+    deckPileContainer,
+    discardPileContainer,
+    onWin,
+  }) {
     this._deckPileContainer = deckPileContainer;
     this._discardPileContainer = discardPileContainer;
     this._players = players;
+
+    this.onWin = onWin;
 
     this.reset();
   }
@@ -16,7 +23,7 @@ export default class ThirtyOneGame {
   reset() {
     this.knocker = null;
 
-    this._deck = Deck();
+    this._deck = new Deck();
     this._deck.mount(this._deckPileContainer);
     this._deck.shuffle();
 
@@ -35,8 +42,8 @@ export default class ThirtyOneGame {
   dealCards() {
     // Put 3 cards in each players' hand
     for (let i = 0; i < this._players.length; ++i) {
-      // this._players[i].hand = this.deckPile.slice(0, 3);
       this._players[i].hand = [];
+
       for (let c = 0; c < HAND_SIZE; c++) {
         this.addToHand(this._players[i], this.deckPile.splice(0, 1)[0]);
       }
@@ -72,11 +79,19 @@ export default class ThirtyOneGame {
   }
 
   knock() {
-    this.knocker = this.turnManager.currentPlayer;
+    if (this.over) {
+      return;
+    }
+
+    this.knocker = this._turnManager.currentPlayer;
   }
 
   nextTurn() {
-    const hand = this.turnManager.currentPlayer.hand;
+    if (this.over) {
+      return;
+    }
+
+    const hand = this._turnManager.currentPlayer.hand;
 
     // Determine if the user won by having 31
     if (count(hand) === 31) {
@@ -84,16 +99,16 @@ export default class ThirtyOneGame {
       return;
     }
 
-    this.turnManager.next();
+    this._turnManager.next();
 
     // Determine if the user won by knocking
-    if (this.turnManager.currentPlayer === this.knocker) {
+    if (this._turnManager.currentPlayer === this.knocker) {
       this.win();
     }
   }
 
   win() {
     this.over = true;
-    this.onWin(this.turnManager.currentPlayer);
+    this.onWin(this._turnManager.currentPlayer);
   }
 }
