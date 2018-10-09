@@ -16,5 +16,6 @@ const Game = new ThirtyOneGame({
 
 bindAll({
   deckClick: () => Game.pickFromDeck(),
-  discardClick: () => Game.pickFromDiscard()
+  discardPileClick: () => Game.pickFromDiscard(),
+  discardFromHandClick: cardPos => Game.discardCard(cardPos)
 });

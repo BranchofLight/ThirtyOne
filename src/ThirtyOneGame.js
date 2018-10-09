@@ -27,6 +27,7 @@ export default class ThirtyOneGame {
     this.discardPile[0].mount(this._discardPileContainer);
 
     this._turnManager = new TurnManager(this._players);
+    this._turnManager.currentPlayer.element.parentNode.classList.add('active');
 
     this.dealCards();
   }
@@ -61,6 +62,13 @@ export default class ThirtyOneGame {
 
     const index = player.hand.length - 1;
     card.mount(player.element.children[index]);
+    console.log(card);
+  }
+
+  discardCard(cardPos) {
+    const player = this._turnManager.currentPlayer;
+    const discardCard = player.hand.splice(cardPos, 1)[0];
+    discardCard.mount(document.querySelector('.discard'));
   }
 
   knock() {
